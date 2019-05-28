@@ -310,4 +310,15 @@ public class SnakeConfig {
             return defaultValue;
         }
     }
+
+    public boolean getBoolean(String key, boolean defaultValue) {
+        synchronized (LOCK) {
+            for (ConfigItem item : configs) {
+                if (item.type == CONFIG && item.key.equals(key)) {
+                    return Boolean.valueOf(item.value);
+                }
+            }
+            return defaultValue;
+        }
+    }
 }

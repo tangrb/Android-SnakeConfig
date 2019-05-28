@@ -6,7 +6,6 @@ import android.view.View;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         SnakeConfig.getDefault().setProperty("weight", 63.5);
         SnakeConfig.getDefault().setProperty("sex", "men");
         SnakeConfig.getDefault().setProperty("age", (byte) 30);
+        SnakeConfig.getDefault().setProperty("enable", true);
         SnakeConfig.getDefault().printConfigItemList();
     }
 
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("age=" + SnakeConfig.getDefault().getByte("age", (byte) 0));
         System.out.println("xxx=" + SnakeConfig.getDefault().getShort("xxx", (short) -1));
         System.out.println("yyy=" + SnakeConfig.getDefault().getLong("yyy", 11111111));
+        System.out.println("enable=" + SnakeConfig.getDefault().getBoolean("enable", false));
     }
 
     public void commit_onClick(View view) {
@@ -54,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         SnakeConfig.getDefault().commitAsync();
 
         try {
-            TimeUnit.MILLISECONDS.sleep(100);
             SnakeConfig.getInstance("demo_write").load(openFileInput("demo.properties"), Charset.forName("UTF-8"));
             SnakeConfig.getInstance("demo_write").printConfigItemList();
         } catch (Exception e) {
